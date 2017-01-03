@@ -11,6 +11,7 @@ var height = 500;
 var app = {
 	init: function(state) {
 		var data = d3.json('data/data.min.json', function(error, taxData) {
+			app.createDropdown(taxData);
 			var svg = d3.select('#tobacco-taxes')
 				.append('svg')
 				.attr('height', height)
@@ -51,6 +52,16 @@ var app = {
 				.call(yRate);
 			}
 		);
+	},
+	createDropdown: function(data) {
+		d3.select('#tobacco-taxes').append('select')
+			.attr('id', 'stateTobaccoSelect');
+		var keys = Object.keys(data);
+		for (var key in data) {
+			d3.select('#stateTobaccoSelect').append('option')
+				.attr('value', key)
+				.html(data[key].name);
+		}
 	}
 };
 
