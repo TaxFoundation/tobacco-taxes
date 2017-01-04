@@ -57,6 +57,9 @@ var app = {
 			.attr('id', 'collections-line')
 			.attr('style', 'stroke: steelblue; stroke-width: 1; fill: none;');
 
+		this.rates = app.svg.append('g')
+			.attr('id', 'rates-group');
+
 		app.draw();
 	},
 
@@ -122,6 +125,17 @@ var app = {
 			.transition()
 			.duration(750)
 			.attr('d', collectionsLine);
+		app.rates.selectAll('line').remove();
+		app.rates
+			.selectAll('line')
+			.data(stateData.rates)
+			.enter()
+			.append('line')
+			.attr('x1', function(d) { return dateScale(new Date(Date.parse(d.date))); })
+			.attr('x2', function(d) { return dateScale(new Date(Date.parse(d.date))); })
+			.attr('y1', app.padding.top)
+			.attr('y2', app.dimensions.height - app.padding.bottom)
+			.attr('style', 'stroke: orange; stroke-width: 1; fill: none;');
 	},
 
 	findMin: function(arr, obs) {
