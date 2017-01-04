@@ -32,6 +32,7 @@ var app = {
 
 		var svg = d3.select('#tobacco-taxes')
 			.append('svg')
+			.attr('id', 'tobacco-svg')
 			.attr('height', app.dimensions.height)
 			.attr('width', app.dimensions.width);
 
@@ -96,9 +97,11 @@ var app = {
 		var yCollections = d3.axisLeft(collectionsScale);
 		var yRates = d3.axisRight(rateScale);
 
-		d3.select('#x-axis').call(xAxis);
-		d3.select('#y-collections').call(yCollections);
-		d3.select('#y-rates').call(yRates);
+		var chart = d3.select('#tobacco-svg')
+			.transition().duration(750);
+		chart.select('#x-axis').call(xAxis);
+		chart.select('#y-collections').call(yCollections);
+		chart.select('#y-rates').call(yRates);
 	},
 
 	findMin: function(arr, obs) {
