@@ -53,6 +53,10 @@ var app = {
 				'transform',
 				'translate(' + (app.dimensions.width - app.padding.right) + ', 0)');
 
+		svg.append('path')
+			.attr('id', 'collections-line')
+			.attr('style', 'stroke: steelblue; stroke-width: 1; fill: none;');
+
 		app.draw();
 	},
 
@@ -73,6 +77,7 @@ var app = {
 		var state = document.getElementById('stateTobaccoSelect').value;
 		var stateData = app.data[state];
 
+		//Sacles
 		var xMin = app.findMin(stateData.collections, 'y');
 		var xMax = app.findMax(stateData.collections, 'y');
 
@@ -93,15 +98,25 @@ var app = {
 			.domain([ratesMax, 0])
 			.range([0, app.dimensions.height - app.padding.top - app.padding.bottom]);
 
+		//Axes
 		var xAxis = d3.axisBottom(dateScale);
 		var yCollections = d3.axisLeft(collectionsScale);
 		var yRates = d3.axisRight(rateScale);
+
+		//Collections line
+		var collections = d3.line()
+			.x(function(d) {
+				console.log(d);
+				return dateScale(new Date(Date.parse(d.y + '-12-31'))); 
+			})
+			.y(function(d) { return collectionsScale(+d.nCol); });
 
 		var chart = d3.select('#tobacco-svg')
 			.transition().duration(750);
 		chart.select('#x-axis').call(xAxis);
 		chart.select('#y-collections').call(yCollections);
 		chart.select('#y-rates').call(yRates);
+		chart.select('#collections-line').attr('d', collections(stateData['collections']));
 	},
 
 	findMin: function(arr, obs) {
