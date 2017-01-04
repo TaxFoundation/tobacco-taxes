@@ -30,30 +30,30 @@ var app = {
 
 		app.createDropdown(app.data);
 
-		var svg = d3.select('#tobacco-taxes')
+		this.svg = d3.select('#tobacco-taxes')
 			.append('svg')
 			.attr('id', 'tobacco-svg')
 			.attr('height', app.dimensions.height)
 			.attr('width', app.dimensions.width);
 
-		svg.append('g')
+		app.svg.append('g')
 			.attr('id', 'x-axis')
 			.attr(
 				'transform',
 				'translate(0, ' + (app.dimensions.height - app.padding.bottom) + ')'
 			);
 
-		svg.append('g')
+		app.svg.append('g')
 			.attr('id', 'y-collections')
 			.attr('transform', 'translate(' + app.padding.left + ', 0)');
 
-		svg.append('g')
+		app.svg.append('g')
 			.attr('id', 'y-rates')
 			.attr(
 				'transform',
 				'translate(' + (app.dimensions.width - app.padding.right) + ', 0)');
 
-		svg.append('path')
+		this.collections = app.svg.append('path')
 			.attr('id', 'collections-line')
 			.attr('style', 'stroke: steelblue; stroke-width: 1; fill: none;');
 
@@ -104,19 +104,24 @@ var app = {
 		var yRates = d3.axisRight(rateScale);
 
 		//Collections line
-		var collections = d3.line()
+		var collectionsLine = d3.line()
 			.x(function(d) {
-				console.log(d);
-				return dateScale(new Date(Date.parse(d.y + '-12-31'))); 
+				return dateScale(new Date(Date.parse(d.y + '-12-31')));
 			})
-			.y(function(d) { return collectionsScale(+d.nCol); });
+			.y(function(d) {
+				return collectionsScale(+d.nCol);
+			});
 
-		var chart = d3.select('#tobacco-svg')
+		var chart = app.svg
 			.transition().duration(750);
 		chart.select('#x-axis').call(xAxis);
 		chart.select('#y-collections').call(yCollections);
 		chart.select('#y-rates').call(yRates);
-		chart.select('#collections-line').attr('d', collections(stateData['collections']));
+		app.collections
+			.data([stateData['collections']])
+			.transition()
+			.duration(750)
+			.attr('d', collectionsLine);
 	},
 
 	findMin: function(arr, obs) {
