@@ -55,7 +55,7 @@ var app = {
 
 		this.collections = app.svg.append('path')
 			.attr('id', 'collections-line')
-			.attr('style', 'stroke: steelblue; stroke-width: 1; fill: none;');
+			.attr('style', 'stroke: steelblue; stroke-width: 2; fill: none;');
 
 		this.rates = app.svg.append('g')
 			.attr('id', 'rates-group');
@@ -64,10 +64,6 @@ var app = {
 	},
 
 	createDropdown: function(data) {
-		d3.select('#tobacco-taxes').append('select')
-			.attr('id', 'stateTobaccoSelect')
-			.attr('onchange', 'app.draw()');
-
 		var keys = Object.keys(data);
 		for (var key in data) {
 			d3.select('#stateTobaccoSelect').append('option')
@@ -135,7 +131,7 @@ var app = {
 			.attr('x2', function(d) { return dateScale(new Date(Date.parse(d.date))); })
 			.attr('y1', app.padding.top)
 			.attr('y2', app.dimensions.height - app.padding.bottom)
-			.attr('style', 'stroke: orange; stroke-width: 1; fill: none;');
+			.attr('style', 'stroke: orange; stroke-width: 2; fill: none;');
 	},
 
 	findMin: function(arr, obs) {
