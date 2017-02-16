@@ -94,19 +94,19 @@ var app = {
 		var stateData = app.data[state];
 
 		//Sacles
-		var xMin = app.findMin(stateData.collections, 'y');
-		var xMax = app.findMax(stateData.collections, 'y');
+		var xMin = d3.min(stateData.collections.map(function(d) { return +d.y; }));
+		var xMax = d3.max(stateData.collections.map(function(d) { return +d.y; }));
 
 		var collectionsMin = app.inflationAdjusted
 			? d3.min(stateData.collections.map(function(d) {
 				return +d.nCol * cpiU[+d.y];
 			}))
-			: app.findMin(stateData.collections, 'nCol');
+			: d3.min(stateData.collections.map(function(d) { return +d.nCol; }));
 		var collectionsMax = app.inflationAdjusted
 			? d3.max(stateData.collections.map(function(d) {
 				return +d.nCol * cpiU[+d.y];
 			}))
-			: app.findMax(stateData.collections, 'nCol');
+			: d3.max(stateData.collections.map(function(d) { return +d.nCol; }));
 
 		// var ratesMax = app.findMax(stateData.collections, 'tP');
 
@@ -174,14 +174,6 @@ var app = {
 			.attr('y1', app.padding.top)
 			.attr('y2', app.dimensions.height - app.padding.bottom)
 			.attr('style', 'stroke: orange; stroke-width: 2; fill: none;');
-	},
-
-	findMin: function(arr, obs) {
-		return Math.min.apply(Math, arr.map(function(d) { return +d[obs]; }));
-	},
-
-	findMax: function(arr, obs) {
-		return Math.max.apply(Math, arr.map(function(d) { return +d[obs]; }));
 	},
 };
 
