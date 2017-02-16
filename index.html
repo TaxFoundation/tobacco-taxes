@@ -5,7 +5,10 @@
 </head>
 <body>
 	<div id="tobacco-taxes">
-    <select id="stateTobaccoSelect" onchange="app.draw()"></select>
+    <label for="states">Choose a State</label>
+    <select name="states" id="stateTobaccoSelect" ></select>
+    <label for="inflation">Inflation Adjusted</label>
+    <input name="inflation" type="checkbox" id="inflation" checked>
   </div>
 
 	<script src="https://d3js.org/d3.v4.min.js"></script>
