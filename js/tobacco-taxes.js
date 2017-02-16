@@ -54,6 +54,9 @@ var app = {
 				'transform',
 				'translate(' + (app.dimensions.width - app.padding.right) + ', 0)');
 
+		this.hikes = app.svg.append('g')
+			.attr('id', 'hikes-group');
+
 		this.collections = app.svg.append('path')
 			.attr('id', 'collections-line')
 			.attr('style', 'stroke: steelblue; stroke-width: 2; fill: none;');
@@ -61,9 +64,6 @@ var app = {
 		// this.taxPercentage = app.svg.append('path')
 		// 	.attr('id', 'tax-as-percentage-of-price')
 		// 	.attr('style', 'stroke: red; stroke-width: 2; fill: none;');
-
-		this.hikes = app.svg.append('g')
-			.attr('id', 'hikes-group');
 
 		this.inflationAdjusted = true;
 
@@ -97,11 +97,7 @@ var app = {
 		var xMin = d3.min(stateData.collections.map(function(d) { return +d.y; }));
 		var xMax = d3.max(stateData.collections.map(function(d) { return +d.y; }));
 
-		var collectionsMin = app.inflationAdjusted
-			? d3.min(stateData.collections.map(function(d) {
-				return +d.nCol * cpiU[+d.y];
-			}))
-			: d3.min(stateData.collections.map(function(d) { return +d.nCol; }));
+		var collectionsMin = 0;
 		var collectionsMax = app.inflationAdjusted
 			? d3.max(stateData.collections.map(function(d) {
 				return +d.nCol * cpiU[+d.y];
