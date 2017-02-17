@@ -32,8 +32,9 @@ var app = {
 		app.setupListeners();
 
 		this.svg = d3.select('#tobacco-taxes')
-			.append('svg')
-			.attr('id', 'tobacco-svg')
+			.append('svg');
+
+		app.svg.attr('id', 'tobacco-svg')
 			.attr('height', app.dimensions.height)
 			.attr('width', app.dimensions.width);
 
@@ -69,6 +70,14 @@ var app = {
 
 		this.inflationAdjusted = true;
 
+		app.draw();
+		window.addEventListener('resize', app.resize);
+	},
+
+	resize: function() {
+		var width = document.getElementById('tobacco-taxes').getBoundingClientRect().width;
+		app.dimensions.width = width;
+		app.svg.attr('width', app.dimensions.width);
 		app.draw();
 	},
 
