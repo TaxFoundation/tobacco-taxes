@@ -39,6 +39,7 @@ var app = {
 
 		app.svg.append('g')
 			.attr('id', 'x-axis')
+			.attr('class', 'axis')
 			.attr(
 				'transform',
 				'translate(0, ' + (app.dimensions.height - app.padding.bottom) + ')'
@@ -46,13 +47,14 @@ var app = {
 
 		app.svg.append('g')
 			.attr('id', 'y-collections')
+			.attr('class', 'axis')
 			.attr('transform', 'translate(' + app.padding.left + ', 0)');
 
-		app.svg.append('g')
-			.attr('id', 'y-rates')
-			.attr(
-				'transform',
-				'translate(' + (app.dimensions.width - app.padding.right) + ', 0)');
+		// app.svg.append('g')
+		// 	.attr('id', 'y-rates')
+		// 	.attr(
+		// 		'transform',
+		// 		'translate(' + (app.dimensions.width - app.padding.right) + ', 0)');
 
 		this.hikes = app.svg.append('g')
 			.attr('id', 'hikes-group');
