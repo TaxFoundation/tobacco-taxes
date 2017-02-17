@@ -75,6 +75,9 @@ var app = {
 		for (var key in data) {
 			d3.select('#stateTobaccoSelect').append('option')
 				.attr('value', key)
+				.property('selected', function(d) {
+					return key === 'new-york' ? true : false;
+				})
 				.html(data[key].name);
 		}
 	},
