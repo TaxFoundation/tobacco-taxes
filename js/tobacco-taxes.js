@@ -59,7 +59,7 @@ var app = {
 
 		this.collections = app.svg.append('path')
 			.attr('id', 'collections-line')
-			.attr('style', 'stroke: steelblue; stroke-width: 2; fill: none;');
+			.attr('style', 'stroke: #0094ff; stroke-width: 3; fill: none;');
 
 		// this.taxPercentage = app.svg.append('path')
 		// 	.attr('id', 'tax-as-percentage-of-price')
@@ -147,7 +147,8 @@ var app = {
 		var chart = app.svg
 			.transition().duration(750);
 		chart.select('#x-axis').call(xAxis);
-		chart.select('#y-collections').call(yCollections);
+		chart.select('#y-collections')
+			.call(yCollections.tickFormat(d3.format('$,')));
 		// chart.select('#y-rates').call(yRates);
 
 		app.collections
@@ -172,7 +173,7 @@ var app = {
 			.attr('x2', function(d) { return dateScale(new Date(Date.parse(d.date))); })
 			.attr('y1', app.padding.top)
 			.attr('y2', app.dimensions.height - app.padding.bottom)
-			.attr('style', 'stroke: orange; stroke-width: 2; fill: none;');
+			.attr('style', 'stroke: #FFE082; stroke-width: 3; fill: none;');
 	},
 };
 
