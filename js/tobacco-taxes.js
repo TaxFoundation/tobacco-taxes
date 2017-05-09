@@ -4,12 +4,12 @@ var DATA_PATH = 'https://static.taxfoundation.org/tobacco-taxes/data/data.min.js
 
 (function() {
   var dimensions = {
-    height: 500,
+    height: 520,
     width: document.getElementById('tobacco-taxes').getBoundingClientRect().width
   };
 
   var padding = {
-    top: 0,
+    top: 20,
     right: 30,
     bottom: 30,
     left: 90
@@ -49,7 +49,7 @@ var app = {
     app.svg.append('g')
       .attr('id', 'y-collections')
       .attr('class', 'axis')
-      .attr('transform', 'translate(' + app.padding.left + ', 0)');
+      .attr('transform', 'translate(' + app.padding.left + ', ' + app.padding.top + ')');
 
     // app.svg.append('g')
     //   .attr('id', 'y-rates')
@@ -58,11 +58,13 @@ var app = {
     //     'translate(' + (app.dimensions.width - app.padding.right) + ', 0)');
 
     this.hikes = app.svg.append('g')
-      .attr('id', 'hikes-group');
+      .attr('id', 'hikes-group')
+      .attr('transform', 'translate(0, ' + app.padding.top + ')');
 
     this.collections = app.svg.append('path')
       .attr('id', 'collections-line')
-      .attr('style', 'stroke: #0094ff; stroke-width: 3; fill: none;');
+      .attr('style', 'stroke: #0094ff; stroke-width: 3; fill: none;')
+      .attr('transform', 'translate(0, ' + app.padding.top + ')');
 
     // this.taxPercentage = app.svg.append('path')
     //   .attr('id', 'tax-as-percentage-of-price')
@@ -200,8 +202,8 @@ var app = {
       .append('line')
       .attr('x1', function(d) { return dateScale(new Date(Date.parse(d.date))); })
       .attr('x2', function(d) { return dateScale(new Date(Date.parse(d.date))); })
-      .attr('y1', app.padding.top)
-      .attr('y2', app.dimensions.height - app.padding.bottom)
+      .attr('y1', 0)
+      .attr('y2', app.dimensions.height - app.padding.top - app.padding.bottom)
       .attr('style', 'stroke: #FFE082; stroke-width: 5; fill: none;')
       .on('mouseover', function (d) { return app.addTooltip(d.date, d.rate); })
       .on('mouseout', function () { app.tooltip.transition().duration(200).style('opacity', 0); });;
