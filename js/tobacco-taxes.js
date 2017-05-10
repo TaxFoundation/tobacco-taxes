@@ -156,6 +156,11 @@ var app = {
     var xAxis = d3.axisBottom(dateScale);
     var yCollections = d3.axisLeft(collectionsScale);
     // var yRates = d3.axisRight(rateScale);
+    if (app.dimensions.width <= 640) {
+      xAxis.ticks(6);
+    } else {
+      xAxis.ticks(13);
+    }
 
     //Collections line
     var collectionsLine = d3.line()
@@ -206,7 +211,7 @@ var app = {
       .attr('y2', app.dimensions.height - app.padding.top - app.padding.bottom)
       .attr('style', 'stroke: #FFE082; stroke-width: 5; fill: none;')
       .on('mouseover', function (d) { return app.addTooltip(d.date, d.rate); })
-      .on('mouseout', function () { app.tooltip.transition().duration(200).style('opacity', 0); });;
+      .on('mouseout', function () { app.tooltip.transition().duration(200).style('opacity', 0); });
   },
 
   addTooltip: function(date, rate) {
