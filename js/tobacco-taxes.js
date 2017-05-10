@@ -12,7 +12,7 @@ var DATA_PATH = 'https://static.taxfoundation.org/tobacco-taxes/data/data.min.js
     top: 20,
     right: 30,
     bottom: 30,
-    left: 90
+    left: 130
   };
 
   d3.json(DATA_PATH, function(error, data) {
@@ -50,6 +50,12 @@ var app = {
       .attr('id', 'y-collections')
       .attr('class', 'axis')
       .attr('transform', 'translate(' + app.padding.left + ', ' + app.padding.top + ')');
+
+    app.svg.append('text')
+      .attr('id', 'y-label')
+      .attr('text-anchor', 'middle')
+      .attr('transform', 'translate(30, ' + app.dimensions.height/2 + ') rotate(-90)')
+      .text('Net Collections (thousands)');
 
     // app.svg.append('g')
     //   .attr('id', 'y-rates')
