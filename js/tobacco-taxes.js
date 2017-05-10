@@ -87,7 +87,7 @@ var app = {
       .style('padding', '8px')
       .style('width', '150px');
 
-    this.dateFormat = d3.timeFormat('%B %e, %Y');
+    this.dateFormat = d3.utcFormat('%B %e, %Y');
     this.adjustment = d3.scaleLinear()
         .domain([0, window.outerWidth])
         .range([0, 150]);
