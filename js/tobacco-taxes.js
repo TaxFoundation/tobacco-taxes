@@ -1,6 +1,6 @@
 'use strict'
 
-var DATA_PATH = 'https://static.taxfoundation.org/tobacco-taxes/data/data.min.json';
+var DATA_PATH = '../data/data.min.json';
 
 (function() {
   var dimensions = {
