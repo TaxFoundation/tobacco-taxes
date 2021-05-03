@@ -159,11 +159,7 @@ var app = {
     var stateData = app.data[state];
 
     //Sacles
-    var xMin = d3.min(
-      stateData.collections.map(function (d) {
-        return +d.y;
-      })
-    );
+    var xMin = 1954;
     var xMax = d3.max(
       stateData.collections.map(function (d) {
         return +d.y;
@@ -219,7 +215,6 @@ var app = {
         return dateScale(new Date(Date.parse(d.y + "-12-31")));
       })
       .y(function (d) {
-        console.log(d, cpiU[+d.y]);
         return collectionsScale(
           app.inflationAdjusted ? +d.nCol * cpiU[+d.y] : +d.nCol
         );
