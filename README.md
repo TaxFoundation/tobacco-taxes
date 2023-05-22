@@ -1,7 +1,5 @@
-To update the CPU-I data:
+This applet displays a line graph in the browser displaying tobacco taxes by year for each state. It is currently featured on the /cigarette-tax-revenue-tool page of the TF website.
 
-Data can be accessed here: https://data.bls.gov/timeseries/CUUR0000SA0?amp%253bdata_tool=XGtable&output_view=data&include_graphs=trueMake
+To Update data, use the 'Tobacco-Tax-Data' repo to generate a new tobacco-data.json with the current years data. Rename this file data.min.json and place in this repos data folder. 
 
-Be sure to pick the right time frame (1955 to start) and include annual averages.
-
-To convert the data for use in this tool, divide the current year's value by the value of each year. So 1955's converted value would be `current year / 1955 origina value`.
+Afterwords update the 'cpiU' object at the bottom of tobacco-taxes.js to include the current year and modify past years data to reflect current level of inflation. To do so, go to, https://data.bls.gov/timeseries/CUUR0000SA0?amp%253bdata_tool=XGtable&output_view=data&include_graphs=trueMake, and change output range to 1955 through the current years data. Download the excel file and for each year calculate the 'cpiU' value by dividing the year of the current data's CPI over the year in the spreadsheet's original CPI. For instance, if the current years data is 2022, and the CPI is 281.48, to calculate the the value for the year 2000 in the 'cpiU' object, you would divide 281.48 by 168.8, the value for the year 2000. Alternatively instead of doing this manually, you can feed the following prompt to Chat GPT to do the calculations, "Can you convert the following into a JS object where the key is the year and the value is 'X' divided by the years original value?", interpolating the most recent years data for 'X' in the prompt.
