@@ -161,7 +161,7 @@ var app = {
     var xMin = 1954;
     var xMax = d3.max(
       stateData.collections.map(function (d) {
-        return +d.y;
+        return +d.year;
       })
     );
 
@@ -169,12 +169,12 @@ var app = {
     var collectionsMax = app.inflationAdjusted
       ? d3.max(
           stateData.collections.map(function (d) {
-            return +d.nCol * cpiU[+d.y];
+            return +d.netCollections * cpiU[+d.year];
           })
         )
       : d3.max(
           stateData.collections.map(function (d) {
-            return +d.nCol;
+            return +d.netCollections;
           })
         );
 
@@ -211,11 +211,11 @@ var app = {
     var collectionsLine = d3
       .line()
       .x(function (d) {
-        return dateScale(new Date(Date.parse(d.y + "-12-31")));
+        return dateScale(new Date(Date.parse(d.year + "-12-31")));
       })
       .y(function (d) {
         return collectionsScale(
-          app.inflationAdjusted ? +d.nCol * cpiU[+d.y] : +d.nCol
+          app.inflationAdjusted ? +d.netCollections * cpiU[+d.year] : +d.netCollections
         );
       });
 
@@ -225,7 +225,7 @@ var app = {
     //     return dateScale(new Date(Date.parse(d.y + '-12-31')));
     //   })
     //   .y(function(d) {
-    //     return rateScale(+d.tP);
+    //     return rateScale(+d.taxAsPercentOfPrice);
     //   });
 
     var chart = app.svg.transition().duration(750);
