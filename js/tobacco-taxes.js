@@ -1,6 +1,6 @@
 "use strict";
 
-var DATA_PATH = "/data/data.min.json";
+var DATA_PATH = "/data/tobacco-data.json";
 
 (function () {
   var dimensions = {
